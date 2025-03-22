@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ post.title }} - My Blog{% endblock %}
+
+{% block content %}
+<a href="{% url 'blog_home' %}" class="btn btn-secondary mb-4">← Back to Blog</a>
+<div class="card shadow">
+    <div class="card-body">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p class="text-muted">Category: {{ post.category }}</p>
+        <p class="card-text">{{ post.content }}</p>
+        <small class="text-muted">Published on: {{ post.created_at }}</small>
+    </div>
+</div>
+{% endblock %}

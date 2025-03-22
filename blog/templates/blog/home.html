@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-center">Blog Posts</h1>
+
+<!-- ⭐ Category filter section -->
+<div class="mb-4 text-center">
+    <h5>Filter by Category:</h5>
+    <div class="d-flex justify-content-center flex-wrap gap-2">
+        <a href="{% url 'blog_home' %}" class="btn btn-outline-primary btn-sm">All</a>
+        {% for code, name in categories %}
+            <a href="?category={{ code }}" class="btn btn-outline-primary btn-sm">
+                {{ name }}
+            </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="row">
+    {% for post in posts %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text small text-muted">Category: {{ post.category }}</p>
+                    <p class="card-text">{{ post.content|truncatechars:100 }}</p>
+                    <a href="{% url 'blog_detail' post.id %}" class="btn btn-primary btn-sm mt-2">Read More</a>
+                </div>
+                <div class="card-footer text-muted small">
+                    Published: {{ post.created_at }}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No blog posts yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
