@@ -3,6 +3,9 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render
 from .models import BlogPost
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
+from .forms import BlogPostForm
 
 
 def blog_home(request):
@@ -23,7 +26,7 @@ def blog_detail(request, post_id):
     return render(request, "blog/detail.html", {"post": post})
 
 
-def create_blog_post(request):
+def create_post(request):
     if request.method == "POST":
         form = BlogPostForm(request.POST)
         if form.is_valid():
