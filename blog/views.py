@@ -21,3 +21,14 @@ def blog_home(request):
 def blog_detail(request, post_id):
     post = get_object_or_404(BlogPost, pk=post_id)
     return render(request, "blog/detail.html", {"post": post})
+
+
+def create_blog_post(request):
+    if request.method == "POST":
+        form = BlogPostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("blog_home")
+    else:
+        form = BlogPostForm()
+    return render(request, "blog/create_post.html", {"form": form})

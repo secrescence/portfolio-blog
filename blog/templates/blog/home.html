@@ -18,8 +18,15 @@
     </div>
 </div>
 
+<!-- ⭐ Create new post button -->
+<div class="text-end mb-3">
+    <a href="{% url 'create_post' %}" class="btn btn-primary">Create New Post</a>
+</div>
+
+<!-- ⭐ Blog post cards -->
 <div class="row">
     {% for post in posts %}
+    <!-- ⭐ Card component -->
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm h-100">
                 <div class="card-body">
