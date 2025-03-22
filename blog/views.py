@@ -6,6 +6,7 @@ from .models import BlogPost
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from .forms import BlogPostForm
+from django.core.paginator import Paginator
 
 
 def blog_home(request):
@@ -15,10 +16,17 @@ def blog_home(request):
     else:
         posts = BlogPost.objects.all().order_by("-created_at")
 
+    # Pagination
+    paginator = Paginator(posts, 5)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
     categories = (
         BlogPost.CATEGORY_CHOICES
     )  # This will send the categories to the template
-    return render(request, "blog/home.html", {"posts": posts, "categories": categories})
+    return render(
+        request, "blog/home.html", {"page_obj": page_obj, "categories": categories}
+    )
 
 
 def blog_detail(request, post_id):
