@@ -35,3 +35,23 @@ def create_post(request):
     else:
         form = BlogPostForm()
     return render(request, "blog/create_post.html", {"form": form})
+
+
+def edit_post(request, post_id):
+    post = get_object_or_404(BlogPost, pk=post_id)
+    if request.method == "POST":
+        form = BlogPostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect("blog_detail", post_id=post.id)
+    else:
+        form = BlogPostForm(instance=post)
+    return render(request, "blog/edit_post.html", {"form": form, "post": post})
+
+
+def delete_post(request, post_id):
+    post = get_object_or_404(BlogPost, pk=post_id)
+    if request.method == "POST":
+        post.delete()
+        return redirect("blog_home")
+    return render(request, "blog/delete_post_confirm.html", {"post": post})
