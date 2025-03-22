@@ -7,6 +7,8 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from .forms import BlogPostForm
 from django.core.paginator import Paginator
+import markdown
+from django.utils.safestring import mark_safe
 
 
 def blog_home(request):
@@ -31,6 +33,7 @@ def blog_home(request):
 
 def blog_detail(request, post_id):
     post = get_object_or_404(BlogPost, pk=post_id)
+    post.content_html = mark_safe(markdown.markdown(post.content))
     return render(request, "blog/detail.html", {"post": post})
 
 

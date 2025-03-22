@@ -14,7 +14,7 @@
         <!-- Post Content -->
         <h2 class="card-title">{{ post.title }}</h2>
         <p class="text-muted">Category: {{ post.category }}</p>
-        <p class="card-text">{{ post.content }}</p>
+        <p class="card-text">{{ post.content_html|safe }}</p>
         <small class="text-muted">Published on: {{ post.created_at }}</small>
     </div>
 </div>
