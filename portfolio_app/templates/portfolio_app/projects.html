@@ -3,19 +3,19 @@
 
 {% block content %}
 <div class="container my-5">
-  <h2 class="text-center mb-5" style="font-weight:600;">Projects</h2>
+  <h2 class="text-center mb-5 fw-bold" style="font-size: 2.5rem;">Projects</h2>
   <div class="row row-cols-1 row-cols-md-3 g-4">
 
     <!-- Portfolio Card -->
     <div class="col">
       <div class="card h-100 project-card">
-        <img src="{% static 'portfolio_app/images/portfolio.jpg' %}" class="card-img-top" alt="Portfolio">
-        <div class="card-body">
-          <h5 class="card-title">Portfolio</h5>
-          <p class="card-text">This portfolio site showcases my projects, skills, and a bit about me.</p>
+        <img src="{% static 'portfolio_app/images/portfolio.jpg' %}" class="card-img-top project-img" alt="Portfolio">
+        <div class="card-body text-center">
+          <h5 class="card-title project-title">Portfolio</h5>
+          <p class="card-text text-muted small">A portfolio site to showcase my projects and skills.</p>
         </div>
         <div class="card-footer text-center border-0 bg-transparent">
-          <a href="{% url 'portfolio_home' %}" class="btn btn-outline-dark">View Project</a>
+          <a href="{% url 'portfolio_home' %}" class="btn btn-outline-dark px-4">View Project</a>
         </div>
       </div>
     </div>
@@ -23,18 +23,16 @@
     <!-- Blog Card -->
     <div class="col">
       <div class="card h-100 project-card">
-        <img src="{% static 'portfolio_app/images/blog.jpg' %}" class="card-img-top" alt="Blog">
-        <div class="card-body">
-          <h5 class="card-title">Inside Secre</h5>
-          <p class="card-text">A simple blog platform built with Django where I write articles and share ideas.</p>
+        <img src="{% static 'portfolio_app/images/blog.jpg' %}" class="card-img-top project-img" alt="Blog">
+        <div class="card-body text-center">
+          <h5 class="card-title project-title">Inside Secre</h5>
+          <p class="card-text text-muted small">A simple blog built with Django where I write and share ideas.</p>
         </div>
         <div class="card-footer text-center border-0 bg-transparent">
-          <a href="{% url 'blog_home' %}" class="btn btn-outline-dark">Go to Blog</a>
+          <a href="{% url 'blog_home' %}" class="btn btn-outline-dark px-4">Go to Blog</a>
         </div>
       </div>
     </div>
-
-    <!-- You can add more cards similarly -->
 
   </div>
 </div>
@@ -42,24 +40,45 @@
 <style>
 .project-card {
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
 .project-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
-.project-card img {
+.project-img {
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
 }
-.project-card .card-body {
-  font-size: 0.95rem;
+.project-card:hover .project-img {
+  filter: grayscale(0%);
 }
-.project-card .btn-outline-dark:hover {
-  background-color: #343a40;
+.project-title {
+  position: relative;
+  display: inline-block;
+}
+.project-title::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #000;
+  transition: width 0.3s;
+}
+.project-card:hover .project-title::after {
+  width: 100%;
+}
+.btn-outline-dark {
+  transition: all 0.3s ease;
+}
+.btn-outline-dark:hover {
+  background-color: #000;
   color: #fff;
-  border-color: #343a40;
 }
 </style>
 {% endblock %}
