@@ -5,6 +5,17 @@
 {% block content %}
 <h1 class="mb-4 text-center">Blog Posts</h1>
 
+<!-- ⭐ Search form -->
+<div class="mb-4 text-center">
+  <form method="get" class="d-flex justify-content-center">
+      {% if category %}
+          <input type="hidden" name="category" value="{{ category }}">
+      {% endif %}
+      <input type="text" name="q" class="form-control w-50 me-2" placeholder="Search posts..." value="{{ search_query|default:'' }}">
+      <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+</div>
+
 <!-- ⭐ Category filter section -->
 <div class="mb-4 text-center">
     <h5>Filter by Category:</h5>

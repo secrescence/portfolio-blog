@@ -9,25 +9,35 @@ from .forms import BlogPostForm
 from django.core.paginator import Paginator
 import markdown
 from django.utils.safestring import mark_safe
+from django.db.models import Q
 
 
 def blog_home(request):
-    category = request.GET.get("category")  # This checks if the user clicked a category
-    if category:
-        posts = BlogPost.objects.filter(category=category).order_by("-created_at")
-    else:
-        posts = BlogPost.objects.all().order_by("-created_at")
+    category = request.GET.get("category")
+    search_query = request.GET.get("q")  # Get the search query from the URL
+    posts = BlogPost.objects.all().order_by("-created_at")
 
-    # Pagination
+    if category:
+        posts = posts.filter(category=category)
+    if search_query:
+        posts = posts.filter(
+            Q(title__icontains=search_query) | Q(content__icontains=search_query)
+        )
+
     paginator = Paginator(posts, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
-    categories = (
-        BlogPost.CATEGORY_CHOICES
-    )  # This will send the categories to the template
+    categories = BlogPost.CATEGORY_CHOICES
     return render(
-        request, "blog/home.html", {"page_obj": page_obj, "categories": categories}
+        request,
+        "blog/home.html",
+        {
+            "page_obj": page_obj,
+            "categories": categories,
+            "category": category,
+            "search_query": search_query,
+        },
     )
 
 
