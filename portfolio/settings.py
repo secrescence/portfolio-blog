@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "blog",  # Add the blog app to the list of installed apps
+    "portfolio_app",  # Add the portfolio app to the list of installed apps
 ]
 
 MIDDLEWARE = [
