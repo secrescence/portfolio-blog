@@ -3,12 +3,32 @@
 {% block title %}Delete Post{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Are you sure you want to delete "{{ post.title }}"?</h1>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Yes, Delete</button>
-        <a href="{% url 'blog_detail' post.id %}" class="btn btn-secondary">Cancel</a>
-    </form>
+<div class="py-5" style="background-color: #f8f9fa; min-height: 100vh;">
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-5 text-center">
+                    <h2 class="fw-bold mb-4 text-danger">Delete Post</h2>
+                    <p class="fs-5">Are you sure you want to delete:</p>
+                    <h4 class="fw-bold mb-4">"{{ post.title }}"</h4>
+                    <form method="post" class="d-flex justify-content-center gap-3">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger px-4 py-2 rounded-pill shadow-sm">Yes, Delete</button>
+                        <a href="{% url 'blog_detail' post.id %}" class="btn btn-outline-secondary px-4 py-2 rounded-pill">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+</style>
 {% endblock %}
