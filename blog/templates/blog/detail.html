@@ -3,19 +3,37 @@
 {% block title %}{{ post.title }} - Details{% endblock %}
 
 {% block content %}
-<a href="{% url 'blog_home' %}" class="btn btn-secondary mb-4">← Back to Blog</a>
-<div class="card position-relative">
-    <div class="card-body">
-        <!-- Button Container -->
-        <div class="position-absolute top-0 end-0 mt-2 me-2">
-            <a href="{% url 'edit_post' post.id %}" class="btn btn-warning btn-sm me-2">Edit</a>
-            <a href="{% url 'delete_post' post.id %}" class="btn btn-danger btn-sm">Delete</a>
+<div class="py-5" style="background-color: #f8f9fa; min-height: 100vh;">
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-md-8">
+            <a href="{% url 'blog_home' %}" class="btn btn-outline-dark mb-4 rounded-pill px-4 shadow-sm">← Back to Blog</a>
+            <div class="card shadow-sm border-0 rounded-4 p-4 position-relative">
+                <!-- Button Container -->
+                <div class="position-absolute top-0 end-0 mt-3 me-3">
+                    <a href="{% url 'edit_post' post.id %}" class="btn btn-outline-warning btn-sm me-2 rounded-pill px-3">Edit</a>
+                    <a href="{% url 'delete_post' post.id %}" class="btn btn-outline-danger btn-sm rounded-pill px-3">Delete</a>
+                </div>
+                <!-- Post Content -->
+                <h2 class="card-title fw-bold mb-3">{{ post.title }}</h2>
+                <p class="text-muted mb-2"><strong>Category:</strong> {{ post.category }}</p>
+                <hr>
+                <div class="card-text mb-4" style="font-size: 1.05rem;">
+                    {{ post.content_html|safe }}
+                </div>
+                <hr>
+                <small class="text-muted">Published on: {{ post.created_at }}</small>
+            </div>
         </div>
-        <!-- Post Content -->
-        <h2 class="card-title">{{ post.title }}</h2>
-        <p class="text-muted">Category: {{ post.category }}</p>
-        <p class="card-text">{{ post.content_html|safe }}</p>
-        <small class="text-muted">Published on: {{ post.created_at }}</small>
     </div>
 </div>
+
+<style>
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+</style>
 {% endblock %}
