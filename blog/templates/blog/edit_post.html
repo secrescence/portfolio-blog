@@ -3,12 +3,76 @@
 {% block title %}Edit Post{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Edit Post: {{ post.title }}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-    </form>
+<div class="py-5" style="background-color: #f8f9fa; min-height: 100vh;">
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-md-8"> 
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold mb-4 text-center">Edit Post</h2>
+                    <h5 class="text-center text-muted mb-4">{{ post.title }}</h5>
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                        <div class="d-flex justify-content-center mt-4 gap-3">
+                            <a href="{% url 'blog_detail' post.id %}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            <button type="submit" class="btn btn-dark px-5 py-2 rounded-pill shadow-sm">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+input, textarea, select {
+    border-radius: 12px !important;
+    border: 1px solid hsl(210, 14%, 83%);
+    padding: 10px 14px !important;
+    width: 100%;
+}
+input:focus, textarea:focus, select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(33, 37, 41, 0.1);
+    border-color: #343a40;
+}
+
+select {
+    border-radius: 12px !important;
+    border: 1px solid hsl(210, 14%, 83%) !important;
+    padding: 10px 14px !important;
+    width: 100%;
+    background-color: #fff !important;
+    color: #212529 !important;
+    appearance: none; /* Remove default arrow styling for full control */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23343a40' class='bi bi-caret-down-fill' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14l-4.796-5.481A.5.5 0 0 1 2.451 5h11.098a.5.5 0 0 1 .376.659l-4.796 5.48a.5.5 0 0 1-.752 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(33, 37, 41, 0.1);
+    border-color: #343a40 !important;
+    outline: none;
+}
+
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+</style>
 {% endblock %}
