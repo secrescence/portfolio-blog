@@ -8,7 +8,7 @@ env/
 
 # Django
 *.migrations/
-db.sqlite3
+
 
 # VSCode
 .vscode/
